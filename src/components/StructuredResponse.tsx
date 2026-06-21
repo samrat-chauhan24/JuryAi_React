@@ -45,6 +45,10 @@ export const StructuredResponse = memo(
     const answerColor =
       data.answer === "Allowed"
         ? "#16a34a"
+        : data.answer === "Conditional"
+        ? "#f59e0b"
+        : data.answer === "Informational"
+        ? "#3b82f6"
         : "#dc2626";
 
     const riskColor =
@@ -63,6 +67,15 @@ export const StructuredResponse = memo(
     const hasReferences =
       data.references?.length > 0;
 
+    const normalizedRisk =
+  data.risk?.trim().toLowerCase();
+
+const showRisk =
+  normalizedRisk &&
+  normalizedRisk !== "none" &&
+  normalizedRisk !== "none risk" &&
+  normalizedRisk !== "no risk";
+
     return (
       <div style={styles.card}>
         <p style={styles.sectionTitle}>
@@ -75,10 +88,12 @@ export const StructuredResponse = memo(
             color={answerColor}
           />
 
-          <Badge
-            label={`${data.risk} Risk`}
-            color={riskColor}
-          />
+          {showRisk && (
+            <Badge
+              label={`${data.risk} Risk`}
+              color={riskColor}
+            />
+          )}
         </div>
 
         <p style={styles.summary}>

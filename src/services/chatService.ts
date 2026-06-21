@@ -1,6 +1,6 @@
 // services/chatService.ts
 
-const USE_MOCK_API = true;
+const USE_MOCK_API = false;
 
 type ChatRequest = {
   query: string;
